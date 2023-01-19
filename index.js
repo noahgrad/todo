@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 let todos = [
   { id: 1, task: 'Learn Node.js' },
@@ -11,6 +12,8 @@ let todos = [
 
 app.use(express.json());
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
 
 app.get('/todos', (req, res) => {
   res.render('todos', { todos });
@@ -43,5 +46,5 @@ app.delete('/todos/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Todo API listening at http://localhost:${port}`);
+  console.log("Todo API listening at http://localhost:${port}");
 });
